@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080808">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>ULAN SHERIMBEKOV</title>
+<meta name="description" content="Портфолио дизайнера ULAN: графический дизайн и видео.">
+<style>
+:root{color-scheme:dark;--bg:#080808;--fg:#f4f4f1;--gap:10px}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Arial,Helvetica,sans-serif}
+header{padding:clamp(24px,5vw,64px) clamp(14px,3vw,42px) clamp(22px,3vw,36px)}
+h1{margin:0;text-align:center;font-size:clamp(42px,8vw,104px);font-weight:500;letter-spacing:-.085em;line-height:.9}
+main{padding:0 clamp(10px,2vw,28px)}
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-flow:row;grid-auto-rows:2px;align-items:start;gap:var(--gap)}
+.work{position:relative;display:block;overflow:hidden;aspect-ratio:var(--ratio,16/9);background:#151515;border:0;padding:0;cursor:pointer;min-width:0}
+.work[data-ratio="vertical"]{aspect-ratio:9/16}
+.work[data-ratio="square"]{aspect-ratio:1/1}
+.work[data-ratio="classic"]{aspect-ratio:4/3}
+.work[data-ratio="wide"]{aspect-ratio:16/9}
+.work[data-ratio="cinema"]{aspect-ratio:2.39/1}
+.work[data-ratio="wide"]{grid-column:span 2}
+.work[data-ratio="cinema"]{grid-column:span 2}
+.work img,.work video,.work iframe{width:100%;height:100%;display:block;object-fit:contain;border:0}
+.work img{transition:transform .45s ease,opacity .3s;opacity:1}
+.work:hover img{transform:scale(1.035);opacity:1}
+.art{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}
+.art:before{content:"";position:absolute;width:75%;aspect-ratio:1;border-radius:50%;background:var(--c,#7d8b68);filter:blur(52px);opacity:.45}
+.art:after{content:"";position:absolute;inset:12%;border:1px solid #ffffff25;transform:rotate(-18deg);border-radius:50%}
+.shape{position:relative;width:42%;aspect-ratio:1;background:linear-gradient(135deg,#f3f3ed,#8e9682 35%,#20211e 70%);border-radius:24%;transform:rotate(32deg);box-shadow:22px 25px 55px #0009}
+.work:nth-child(2) .shape{border-radius:50%;background:linear-gradient(130deg,#e2e9ff,#747fa6 35%,#15172a 75%);transform:rotate(-24deg) scaleX(1.3)}
+.work:nth-child(3) .shape{border-radius:0;background:linear-gradient(135deg,#ffb37a,#8a3528 42%,#1b1110);transform:rotate(45deg) scale(.9)}
+.work:nth-child(4) .shape{border-radius:50% 50% 8% 8%;background:linear-gradient(135deg,#c6ffe9,#328f75 45%,#102d28);transform:rotate(-18deg) scaleX(.8)}
+.work:nth-child(5) .shape{border-radius:4px;background:linear-gradient(135deg,#f3d6ff,#875caa 50%,#20142b);transform:rotate(8deg) scaleX(1.1)}
+.work:nth-child(6) .shape{border-radius:50%;background:linear-gradient(135deg,#fff,#777 40%,#181818);transform:rotate(0) scaleX(1.25)}
+.work .hint{position:absolute;left:12px;bottom:10px;font-size:9px;letter-spacing:.14em;color:#ffffffa8;text-transform:uppercase}
+footer{display:flex;justify-content:center;padding:clamp(32px,6vw,72px) 16px 30px}
+.instagram{width:27px;height:27px;color:var(--fg);display:inline-flex;align-items:center;justify-content:center;opacity:.86;transition:opacity .2s,transform .2s}
+.instagram:hover{opacity:1;transform:translateY(-2px)}
+.instagram svg{width:100%;height:100%;display:block}
+.viewer{position:fixed;inset:0;z-index:10;background:#000f;display:none;align-items:center;justify-content:center;padding:clamp(12px,3vw,36px)}
+.viewer.open{display:flex}
+.viewer-inner{position:relative;width:min(1100px,100%);max-height:90vh;display:grid;place-items:center}
+.viewer-content{width:100%;aspect-ratio:16/9;background:#111;display:grid;place-items:center}
+.viewer-content iframe,.viewer-content video,.viewer-content img{width:100%;height:100%;object-fit:contain;border:0}
+.close{position:absolute;right:0;bottom:calc(100% + 12px);border:0;background:transparent;color:#fff;font-size:32px;line-height:1;cursor:pointer;padding:4px 8px}
+@media(min-width:1500px){.gallery{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:700px){
+  :root{--gap:6px}
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .work[data-ratio="wide"],.work[data-ratio="cinema"]{grid-column:span 2}
+  .work[data-ratio="vertical"]{grid-column:span 1}
+  header{padding-bottom:24px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+
+.subtitle{text-align:center;margin:18px 0 0;font-size:14px;letter-spacing:.08em;color:#aaa}
+.work:focus-visible,.instagram:focus-visible,.close:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.play-label{position:absolute;left:12px;bottom:12px;padding:8px 10px;background:#000c;color:#fff;font:12px Arial;border-radius:4px;pointer-events:none}
+.work img{transform:none!important}
+.instagram{min-width:44px;min-height:44px;padding:8px}
+.viewer{width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;padding:60px 16px;color:var(--fg);background:#080808;overflow:hidden}
+.viewer[open]{display:flex}
+.viewer::backdrop{background:#000e}
+.viewer-inner{width:auto;max-height:none;height:auto}
+.viewer-content{width:100%;height:100%;aspect-ratio:auto}
+.close{position:absolute;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));bottom:auto;width:44px;height:44px;z-index:2}
+.viewer-message{padding:24px;max-width:420px;text-align:center;font:14px/1.6 Arial;color:#ddd}
+.viewer-message a{color:inherit}
+.youtube-original{position:absolute;bottom:max(16px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);color:#fff;background:#292929;padding:12px 18px;border-radius:6px;text-decoration:none;font:14px Arial;white-space:nowrap}
+.youtube-original[hidden]{display:none}
+.youtube-original:focus-visible{outline:2px solid #fff;outline-offset:4px}
+</style>
+</head>
+<body>
+<header><h1>ULAN SHERIMBEKOV</h1><p class="subtitle">Motion Graphics & Visual Design for Fintech</p></header>
+<main>
+  <div class="gallery" id="gallery" aria-label="Портфолио">
+    <!--
+      ДОБАВЛЕНИЕ РАБОТ:
+      Изображение:
+      <button class="work" data-type="image" data-src="https://ВАША-ССЫЛКА/preview.jpg" aria-label="Открыть работу"><img src="https://ВАША-ССЫЛКА/preview.jpg" alt=""></button>
+
+      Видео YouTube:
+      <button class="work" data-type="youtube" data-src="https://youtu.be/VIDEO_ID" aria-label="Открыть видео"><div class="art" style="--c:#66754d"><div class="shape"></div></div></button>
+
+      Прямой MP4:
+      <button class="work" data-type="video" data-src="https://ВАША-ССЫЛКА/video.mp4" aria-label="Открыть видео"><img src="https://ВАША-ССЫЛКА/preview.jpg" alt=""></button>
+      Форматы карточек:
+      data-ratio="wide" — 16:9 (широкая, занимает две колонки)
+      data-ratio="vertical" — 9:16 (вертикальная)
+      data-ratio="square" — 1:1 (квадрат)
+      data-ratio="classic" — 4:3
+      data-ratio="cinema" — 2.39:1 (широкий кинематографический кадр)
+      Если data-ratio не указан, используется 16:9.
+      Карточки ниже подключены к Google Drive; доступ к файлам должен быть открыт по ссылке.
+    -->
+    <button class="work" type="button" data-type="drive" data-ratio="wide" data-src="https://drive.google.com/file/d/1eRWS0Xlm7rOqHfO53z563viz71IgQSFM/view" aria-label="Открыть работу 1"><img src="https://drive.google.com/thumbnail?id=1eRWS0Xlm7rOqHfO53z563viz71IgQSFM&sz=w1200" alt="Превью работы 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="vertical" data-src="https://drive.google.com/file/d/1klg7u1NUAhJWlcvMsSdP9BVhejD4qKbK/view" aria-label="Открыть работу 2"><img src="https://drive.google.com/thumbnail?id=1klg7u1NUAhJWlcvMsSdP9BVhejD4qKbK&sz=w1200" alt="Превью работы 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="square" data-src="https://drive.google.com/file/d/1L-w6P0RNzvPi2Lmi-2RvuePqvqyzq1r8/view" aria-label="Открыть работу 3"><img src="https://drive.google.com/thumbnail?id=1L-w6P0RNzvPi2Lmi-2RvuePqvqyzq1r8&sz=w1200" alt="Превью работы 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="classic" data-src="https://drive.google.com/file/d/1c6WWnt6k5LcZRJ4a1buMOmD8s52CgIhN/view" aria-label="Открыть работу 4"><img src="https://drive.google.com/thumbnail?id=1c6WWnt6k5LcZRJ4a1buMOmD8s52CgIhN&sz=w1200" alt="Превью работы 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="cinema" data-src="https://drive.google.com/file/d/1kcM17Nlx4gClD8IXGAVpddNbyYsWWRVL/view" aria-label="Открыть работу 5"><img src="https://drive.google.com/thumbnail?id=1kcM17Nlx4gClD8IXGAVpddNbyYsWWRVL&sz=w1200" alt="Превью работы 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="vertical" data-src="https://drive.google.com/file/d/1f31qZO5F0ryaMJYe1I-yFL18sBBEvPF7/view" aria-label="Открыть работу 6"><img src="https://drive.google.com/thumbnail?id=1f31qZO5F0ryaMJYe1I-yFL18sBBEvPF7&sz=w1200" alt="Превью работы 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="wide" data-src="https://drive.google.com/file/d/1cjYVaGqMI2SQMT4UwanjD97GTDEGMTgM/view" aria-label="Открыть работу 7"><img src="https://drive.google.com/thumbnail?id=1cjYVaGqMI2SQMT4UwanjD97GTDEGMTgM&sz=w1200" alt="Превью работы 7" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="classic" data-src="https://drive.google.com/file/d/1RdprL8n5evbzY75muLSvewHveOQgI56k/view" aria-label="Открыть работу 8"><img src="https://drive.google.com/thumbnail?id=1RdprL8n5evbzY75muLSvewHveOQgI56k&sz=w1200" alt="Превью работы 8" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="square" data-src="https://drive.google.com/file/d/1eKcw0Bdy-NO8m3r0rLhL83eP6uBSs52q/view" aria-label="Открыть работу 9"><img src="https://drive.google.com/thumbnail?id=1eKcw0Bdy-NO8m3r0rLhL83eP6uBSs52q&sz=w1200" alt="Превью работы 9" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="vertical" data-src="https://drive.google.com/file/d/1jKsE77UW97XxflR5VQnb9zCeonhE2UlS/view" aria-label="Открыть работу 10"><img src="https://drive.google.com/thumbnail?id=1jKsE77UW97XxflR5VQnb9zCeonhE2UlS&sz=w1200" alt="Превью работы 10" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="wide" data-src="https://drive.google.com/file/d/1tjVVWKPTzidvUmC3soPrHSWyQIACrTC3/view" aria-label="Открыть работу 11"><img src="https://drive.google.com/thumbnail?id=1tjVVWKPTzidvUmC3soPrHSWyQIACrTC3&sz=w1200" alt="Превью работы 11" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+    <button class="work" type="button" data-type="drive" data-ratio="classic" data-src="https://drive.google.com/file/d/1FukC9sBsNnlO4v_JhrYLooq5_QitBm04/view" aria-label="Открыть работу 12"><img src="https://drive.google.com/thumbnail?id=1FukC9sBsNnlO4v_JhrYLooq5_QitBm04&sz=w1200" alt="Превью работы 12" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="play-label">Открыть работу ↗</span></button>
+  </div>
+</main>
+<footer>
+  <!-- ЗАМЕНИТЕ @ВАШ_АККАУНТ НА СВОЮ ССЫЛКУ INSTAGRAM -->
+  <a class="instagram" href="https://www.instagram.com/ulan.sherimbeque?utm_source=qr&psln=MW04cGswZGx0d2Nrbg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.6" r="1.15" fill="currentColor"/></svg>
+  </a>
+</footer>
+<dialog class="viewer" id="viewer" aria-label="Просмотр работы">
+  <button class="close" id="close" type="button" aria-label="Закрыть">×</button><div class="viewer-inner"><div class="viewer-content" id="viewerContent"></div></div>
+<a id="externalOriginal" class="youtube-original" href="https://drive.google.com/" target="_blank" rel="noopener noreferrer" hidden>Открыть оригинал ↗</a>
+</dialog>
+<script>
+
+const viewer=document.getElementById('viewer');
+const content=document.getElementById('viewerContent');
+const inner=viewer.querySelector('.viewer-inner');
+const gallery=document.getElementById('gallery');
+const closeButton=document.getElementById('close');
+const externalOriginal=document.getElementById('externalOriginal');
+const ratios={vertical:9/16,square:1,classic:4/3,wide:16/9,cinema:2.39};
+let activeRatio=16/9,opener=null,previousOverflow='';
+function getYouTubeId(value){
+ try{const u=new URL(value,location.href),host=u.hostname.toLowerCase().replace(/^www\./,'');let id='';
+ if(host==='youtu.be')id=u.pathname.split('/').filter(Boolean)[0]||'';
+ else if(['youtube.com','m.youtube.com','music.youtube.com','youtube-nocookie.com'].includes(host)){
+ const parts=u.pathname.split('/').filter(Boolean);
+ if(u.pathname==='/watch')id=u.searchParams.get('v')||'';
+ else if(['embed','shorts','live','v'].includes(parts[0]))id=parts[1]||'';}
+ return /^[a-zA-Z0-9_-]{11}$/.test(id)?id:'';}catch{return '';}
+}
+function layoutGallery(){
+ const style=getComputedStyle(gallery),row=parseFloat(style.gridAutoRows),gap=parseFloat(style.rowGap);
+ gallery.querySelectorAll('.work').forEach(el=>{
+ const ratio=Number(el.dataset.actualRatio)||ratios[el.dataset.ratio]||16/9;
+ el.style.aspectRatio=String(ratio);
+ el.style.gridRowEnd='span '+Math.ceil((el.getBoundingClientRect().width/ratio+gap)/(row+gap));
+ });
+}
+let layoutFrame;
+function scheduleLayout(){cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(layoutGallery);}
+function fitViewer(){
+ if(!viewer.open)return;
+ const w=Math.min(1100,window.innerWidth-32,(window.innerHeight-120)*activeRatio);
+ inner.style.width=Math.max(1,w)+'px';inner.style.height=Math.max(1,w/activeRatio)+'px';
+}
+function showMessage(text,url){
+ content.replaceChildren();const message=document.createElement('div');message.className='viewer-message';message.textContent=text;
+ if(url){message.append(document.createElement('br'));const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Открыть оригинал ↗';message.append(a);}
+ content.append(message);
+}
+function openWork(el){
+ const type=el.dataset.type,src=(el.dataset.src||'').trim();
+ opener=el;activeRatio=Number(el.dataset.actualRatio)||ratios[el.dataset.ratio]||16/9;
+ content.replaceChildren();externalOriginal.hidden=true;
+ if(type==='youtube'&&src){
+ const id=getYouTubeId(src);if(id){
+ externalOriginal.href=`https://www.youtube.com/watch?v=${id}`;externalOriginal.textContent='Смотреть на YouTube ↗';externalOriginal.hidden=false;
+ if(!['http:','https:'].includes(location.protocol)||location.origin==='null'){
+ const preview=document.createElement('img');preview.src=`https://i.ytimg.com/vi/${id}/hqdefault.jpg`;preview.alt='Превью видео. Для просмотра нажмите «Смотреть на YouTube».';content.append(preview);
+ }else{const frame=document.createElement('iframe');
+ const embed=new URL(`https://www.youtube.com/embed/${id}`);embed.searchParams.set('autoplay','1');embed.searchParams.set('rel','0');embed.searchParams.set('origin',location.origin);frame.src=embed.href;
+ frame.title=el.getAttribute('aria-label')||'Видеоработа';
+ frame.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';frame.referrerPolicy='strict-origin-when-cross-origin';frame.allowFullscreen=true;content.append(frame);}
+ }else showMessage('Не удалось открыть видео. Проверьте ссылку.');
+ }else if(type==='drive'&&src){
+ const match=src.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);const id=match?match[1]:'';
+ if(!id){showMessage('Не удалось распознать ссылку Google Drive.',src);}
+ else{
+ externalOriginal.href=`https://drive.google.com/file/d/${id}/view`;externalOriginal.textContent='Открыть оригинал в Google Drive ↗';externalOriginal.hidden=false;
+ const frame=document.createElement('iframe');frame.src=`https://drive.google.com/file/d/${id}/preview`;frame.title=el.getAttribute('aria-label')||'Работа из Google Drive';frame.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';frame.referrerPolicy='strict-origin-when-cross-origin';frame.allowFullscreen=true;content.append(frame);
+ }
+ }else if(type==='video'&&src){
+ const v=document.createElement('video');v.src=src;v.controls=true;v.autoplay=true;v.playsInline=true;v.preload='metadata';
+ v.addEventListener('loadedmetadata',()=>{if(v.videoWidth&&v.videoHeight){activeRatio=v.videoWidth/v.videoHeight;fitViewer();}});
+ v.addEventListener('error',()=>showMessage('Видео не удалось загрузить.',src));content.append(v);
+ }else if(type==='image'&&src){
+ const img=document.createElement('img');img.alt=el.querySelector('img')?.alt||'Работа дизайнера';
+ img.addEventListener('load',()=>{activeRatio=img.naturalWidth/img.naturalHeight;fitViewer();});
+ img.addEventListener('error',()=>showMessage('Изображение не удалось загрузить.',src));img.src=src;content.append(img);
+ }else if(type==='demo'){
+ activeRatio=16/9;showMessage('Здесь будет ваша работа.');
+ }else return;
+ previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';viewer.showModal();fitViewer();closeButton.focus();
+}
+function cleanViewer(){
+ content.querySelectorAll('video').forEach(v=>v.pause());content.replaceChildren();externalOriginal.hidden=true;document.body.style.overflow=previousOverflow;opener?.focus();
+}
+function closeViewer(){if(viewer.open)viewer.close();}
+viewer.addEventListener('close',cleanViewer);
+closeButton.addEventListener('click',closeViewer);
+viewer.addEventListener('click',e=>{if(e.target===viewer)closeViewer();});
+gallery.querySelectorAll('.work').forEach(el=>{
+ el.type='button';el.addEventListener('click',()=>openWork(el));
+ const img=el.querySelector('img');
+ if(img){img.loading='lazy';img.decoding='async';
+ const setRatio=()=>{if(img.naturalWidth&&img.naturalHeight){el.dataset.actualRatio=img.naturalWidth/img.naturalHeight;scheduleLayout();}};
+ img.addEventListener('load',setRatio);if(img.complete)setRatio();}
+});
+new ResizeObserver(scheduleLayout).observe(gallery);
+window.addEventListener('resize',()=>{scheduleLayout();fitViewer();});
+scheduleLayout();
+</script>
+</body>
+</html>
